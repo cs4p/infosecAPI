@@ -1,0 +1,3295 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Infosec IQ Public API",
+    "description": "Welcome to the Infosec IQ REST API Version 2 documentation!\n * [Privacy Policy](https://www.cengagegroup.com/privacy/)\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+    "version": "2.0"
+  },
+  "servers": [
+    {
+      "url": "https://securityiq.infosecinstitute.com/api/v2",
+      "description": "North American Server"
+    },
+    {
+      "url": "https://securityiq-eu.infosecinstitute.com/api/v2",
+      "description": "EU Server"
+    }
+  ],
+  "paths": {
+    "/assessments/{id}": {
+      "get": {
+        "summary": "Retrieve an assessment",
+        "description": "This endpoint retrieves an assessment by ID.",
+        "operationId": "getAssessmentById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the requested assessment",
+            "required": true,
+            "schema": {
+              "title": "id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested assessment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Assessment"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Assessment not found"
+          }
+        }
+      }
+    },
+    "/batteries": {
+      "get": {
+        "summary": "List batteries",
+        "description": "This endpoint retrieves a list of PhishSim template batteries.",
+        "operationId": "getBatteries",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of batteries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Battery"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/branding": {
+      "get": {
+        "summary": "List brands",
+        "description": "This endpoint retrieves a list of brands.",
+        "operationId": "getBrandings",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of brands",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Brandings"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No brands found"
+          }
+        }
+      }
+    },
+    "/campaigns/{campaign_id}/enrollments/": {
+      "post": {
+        "summary": "Create campaign enrollments",
+        "description": "This endpoint enrolls a learner into a campaign.",
+        "operationId": "8b8cb4ec6b1dd1d702f0115a60231cf5",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "ID of campaign to enroll learner",
+            "required": true,
+            "schema": {
+              "title": "campaign_id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The request body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "learner_id": {
+                    "description": "Unique identifier for the learner",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The enrollment that was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Enrollment"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/{id}/runs": {
+      "get": {
+        "summary": "List campaign runs",
+        "description": "This endpoint retrieves a list of campaign runs.",
+        "operationId": "getCampaignRunsByCampaignId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the campaign",
+            "required": true,
+            "schema": {
+              "title": "id",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of campaign runs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/CampaignRun"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No campaign runs found"
+          }
+        }
+      }
+    },
+    "/campaigns/{campaign_id}/runs/{run_id}": {
+      "get": {
+        "summary": "Retrieve a campaign run",
+        "description": "This endpoint retrieves a specific campaign run.",
+        "operationId": "getCampaignRunById",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "The id of the campaign",
+            "required": true,
+            "schema": {
+              "title": "campaign_id",
+              "type": "string"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "path",
+            "description": "The id of the campaign run",
+            "required": true,
+            "schema": {
+              "title": "run_id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The campaign run",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "data",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CampaignRun"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Campaign run not found"
+          }
+        }
+      }
+    },
+    "/campaigns/{campaign_id}/runs/{run_id}/stats": {
+      "get": {
+        "summary": "Retrieve statistics about a campaign run",
+        "description": "This endpoint retrieves various statistics about a campaign run.",
+        "operationId": "getCampaignRunStatsById",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "The id of the campaign",
+            "required": true,
+            "schema": {
+              "title": "campaign_id",
+              "type": "string"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "path",
+            "description": "The id of the campaign run",
+            "required": true,
+            "schema": {
+              "title": "run_id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The campaign run statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "data",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CampaignRunStats"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Campaign run not found"
+          },
+          "502": {
+            "description": "Statistics only available for AwareEd campaigns"
+          }
+        }
+      }
+    },
+    "/campaigns/{campaign_id}/runs/{run_id}/learners": {
+      "get": {
+        "summary": "Retrieve statistics about learners in a campaign run",
+        "description": "This endpoint retrieves the status of each learner enrolled in an campaign.",
+        "operationId": "getCampaignRunLearners",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "The id of the campaign",
+            "required": true,
+            "schema": {
+              "title": "campaign_id",
+              "type": "string"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "path",
+            "description": "The id of the campaign run",
+            "required": true,
+            "schema": {
+              "title": "run_id",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The campaign run learner statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/CampaignRunLearnerStats"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Campaign run not found"
+          },
+          "502": {
+            "description": "Statistics only available for AwareEd campaigns"
+          }
+        }
+      }
+    },
+    "/campaigns": {
+      "get": {
+        "summary": "List campaigns",
+        "description": "This endpoint retrieves a page of campaigns, optionally filtered by by a name parameter.",
+        "operationId": "getCampaigns",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Search campaigns by name",
+            "required": false,
+            "schema": {
+              "title": "name",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of campaigns",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Campaign"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/{id}": {
+      "get": {
+        "summary": "Retrieve a campaign",
+        "description": "This endpoint retrieves a campaign by id.",
+        "operationId": "getCampaignById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The requested campaign id",
+            "required": true,
+            "schema": {
+              "title": "id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested campaign",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campaign"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Campaign not found"
+          }
+        }
+      }
+    },
+    "/campaigns/details/{id}": {
+      "get": {
+        "summary": "Retrieve campaign details (clone)",
+        "description": "This endpoint retrieves campaign details by id, in the shape needed to clone it.",
+        "operationId": "getCampaignDetailsById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The requested campaign id",
+            "required": true,
+            "schema": {
+              "title": "id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested campaign"
+          },
+          "404": {
+            "description": "Campaign not found"
+          }
+        }
+      }
+    },
+    "/campaigns/awareed": {
+      "post": {
+        "summary": "Create a new AwareEd campaign",
+        "description": "This endpoint creates a new AwareEd campaign.",
+        "operationId": "createAwareEdCampaign",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "course_id": {
+                    "type": "string"
+                  },
+                  "is_test": {
+                    "type": "boolean"
+                  },
+                  "branding_id": {
+                    "type": "string"
+                  },
+                  "language_id": {
+                    "type": "string"
+                  },
+                  "autoplay": {
+                    "type": "boolean"
+                  },
+                  "enable_completion_cert": {
+                    "type": "boolean"
+                  },
+                  "require_assessment_retake": {
+                    "type": "boolean"
+                  },
+                  "lock_learners_out": {
+                    "type": "boolean"
+                  },
+                  "learner_auth_enabled": {
+                    "type": "boolean"
+                  },
+                  "reset_progress": {
+                    "type": "boolean"
+                  },
+                  "schedule_interval_units": {
+                    "description": "Send learners training daily, weekly, etc",
+                    "type": "string",
+                    "enum": [
+                      "number_of_days",
+                      "day",
+                      "week",
+                      "month",
+                      "quarter"
+                    ]
+                  },
+                  "number_of_days": {
+                    "description": "Required if schedule_interval_units=\"number_of_days\"",
+                    "type": "integer"
+                  },
+                  "number_of_repeats": {
+                    "description": "Required if schedule_interval_units=\"number_of_days\"",
+                    "type": "integer"
+                  },
+                  "start_date": {
+                    "description": "Format: YYYY-MM-DD",
+                    "type": "string"
+                  },
+                  "notifications": {
+                    "description": "List of notifications for Enrollment, Start, Finish, and Completion",
+                    "properties": {
+                      "template_id": {
+                        "description": "A unique identifier for each template",
+                        "type": "string"
+                      },
+                      "recipient": {
+                        "description": "Recipient of this notification",
+                        "type": "string",
+                        "enum": [
+                          "learner",
+                          "manager"
+                        ]
+                      },
+                      "interval": {
+                        "description": "Only used for Start and Finish notifications",
+                        "type": "integer"
+                      },
+                      "repeat": {
+                        "description": "Only used for Start and Finish notifications",
+                        "type": "boolean"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "all_learners": {
+                    "description": "Enroll all learners",
+                    "type": "boolean"
+                  },
+                  "learner_group_ids": {
+                    "description": "Can only be included if all_learners=false",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "learner_ids": {
+                    "description": "Can only be included if all_learners=false",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The newly created campaign",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campaign"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - incorrect property types, missing properties, etc"
+          },
+          "401": {
+            "description": "Unauthorized - no access to requested course, branding, etc"
+          },
+          "409": {
+            "description": "Temporary Conflict - Active Directory sync is in process"
+          }
+        }
+      }
+    },
+    "/campaigns/phishsim": {
+      "post": {
+        "summary": "Create a new PhishSim campaign",
+        "description": "This endpoint creates a new PhishSim campaign.",
+        "operationId": "createPhishSimCampaign",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "is_test": {
+                    "type": "boolean"
+                  },
+                  "templates": {
+                    "description": "List of template IDs",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "batteries": {
+                    "description": "List of battery IDs",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "categories": {
+                    "description": "List of category IDs",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "send_all_templates": {
+                    "type": "boolean"
+                  },
+                  "template_send_count": {
+                    "type": "integer"
+                  },
+                  "track_replies": {
+                    "type": "boolean"
+                  },
+                  "track_reply_action": {
+                    "type": "string",
+                    "enum": [
+                      "none",
+                      "store"
+                    ]
+                  },
+                  "branding_id": {
+                    "type": "string"
+                  },
+                  "schedule_interval_units": {
+                    "description": "Send learners training daily, weekly, etc",
+                    "type": "string",
+                    "enum": [
+                      "number_of_days",
+                      "all_at_once",
+                      "day",
+                      "week",
+                      "month",
+                      "quarter"
+                    ]
+                  },
+                  "number_of_days": {
+                    "description": "Required if scheduled_interval_units=\"number_of_days\"",
+                    "type": "integer"
+                  },
+                  "number_of_repeats": {
+                    "description": "Required if scheduled_interval_units=\"number_of_days\"",
+                    "type": "integer"
+                  },
+                  "start_date": {
+                    "description": "Format: YYYY-MM-DD",
+                    "type": "string"
+                  },
+                  "start_hour": {
+                    "description": "Number between 0 and 23. Used only if scheduled_interval_units=\"all_at_once\"",
+                    "type": "string"
+                  },
+                  "phished_notification_id": {
+                    "description": "Optional",
+                    "type": "string"
+                  },
+                  "add_phished_learners_to_group_id": {
+                    "description": "Optional",
+                    "type": "string"
+                  },
+                  "all_learners": {
+                    "description": "Enroll all learners",
+                    "type": "boolean"
+                  },
+                  "learner_group_ids": {
+                    "description": "Can only be included if all_learners=false",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "learner_ids": {
+                    "description": "Can only be included if all_learners=false",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The newly created campaign",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campaign"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - incorrect property types, missing properties, etc"
+          },
+          "401": {
+            "description": "Unauthorized - no access to requested templates, branding, etc"
+          },
+          "409": {
+            "description": "Temporary Conflict - Active Directory sync is in process"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "summary": "List categories",
+        "description": "This endpoint retrieves a list of categories.",
+        "operationId": "Categories",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of Categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No category found"
+          }
+        }
+      }
+    },
+    "/courses": {
+      "get": {
+        "summary": "List courses",
+        "description": "This endpoint retrieves a list of courses.",
+        "operationId": "getCourses",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of courses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Courses"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No courses found"
+          }
+        }
+      }
+    },
+    "/courses/{id}": {
+      "get": {
+        "summary": "Retrieve a course",
+        "description": "This endpoint retrieves a course by id.",
+        "operationId": "26c872a11e6d7df92aa7135b837c27f2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the requested course",
+            "required": true,
+            "schema": {
+              "title": "id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested course",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/CourseView"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found"
+          }
+        }
+      }
+    },
+    "/languages": {
+      "get": {
+        "summary": "List languages",
+        "description": "This endpoint retrieves a list of languages.",
+        "operationId": "getLanguages",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of languages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Languages"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No languages found"
+          }
+        }
+      }
+    },
+    "/learner-groups": {
+      "get": {
+        "summary": "List Learner Groups",
+        "description": "This endpoint retrieves a list of target groups.",
+        "operationId": "Groups",
+        "responses": {
+          "200": {
+            "description": "List of Groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/LearnerGroupList"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No groups found"
+          }
+        }
+      }
+    },
+    "/learner-groups/{id}": {
+      "get": {
+        "summary": "Retrieve a learner group",
+        "description": "This endpoint retrieves a learner group by ID.",
+        "operationId": "getLearnerGroupById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the requested learner group",
+            "required": true,
+            "schema": {
+              "title": "id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested learner group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearnerGroup"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Learner Group not found"
+          }
+        }
+      }
+    },
+    "/learner-groups/{group_id}/learners": {
+      "get": {
+        "summary": "List learners in a group",
+        "description": "This endpoint retrieves a list of learners in a group.",
+        "operationId": "getLearnerGroupLearnersByLearnerId",
+        "parameters": [
+          {
+            "name": "group_id",
+            "in": "path",
+            "description": "The ID of the learner group",
+            "required": true,
+            "schema": {
+              "title": "group_id",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested learners",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Learner"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Learner Group not found"
+          }
+        }
+      }
+    },
+    "/learners/{learner_id}/timeline-events": {
+      "get": {
+        "summary": "List learner timeline events",
+        "description": "This endpoint retrieves a page of timeline events associated with the given Learner ID.",
+        "parameters": [
+          {
+            "name": "learner_id",
+            "in": "path",
+            "description": "Learner id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "Earliest time (yyyy-mm-dd HH:MM:SS:z or yyyy-mm-dd HH:MM:SS) TimelineEvent could have occurred (inclusive).",
+            "required": false,
+            "schema": {
+              "title": "start",
+              "type": "string"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "description": "Latest time (yyyy-mm-dd HH:MM:SS:z or yyyy-mm-dd HH:MM:SS) TimelineEvent could have occurred (exclusive).",
+            "required": false,
+            "schema": {
+              "title": "end",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of TimelineEvents associated with Learner were retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/TimelineEvent"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No TimelineEvents associated with Learner were found"
+          }
+        }
+      }
+    },
+    "/learners": {
+      "get": {
+        "summary": "List learners",
+        "description": "This endpoint retrieves a page of learners, optionally filtered by an email, first name, or last name parameter.",
+        "operationId": "listLearners",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Search learners by email",
+            "required": false,
+            "schema": {
+              "title": "email",
+              "type": "string"
+            }
+          },
+          {
+            "name": "first_name",
+            "in": "query",
+            "description": "Search learners by first name",
+            "required": false,
+            "schema": {
+              "title": "first_name",
+              "type": "string"
+            }
+          },
+          {
+            "name": "last_name",
+            "in": "query",
+            "description": "Search learners by last name",
+            "required": false,
+            "schema": {
+              "title": "last_name",
+              "type": "string"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "Earliest time (yyyy-mm-dd HH:MM:SS:z or yyyy-mm-dd HH:MM:SS) the learner could have been last modified (inclusive).",
+            "required": false,
+            "schema": {
+              "title": "start",
+              "type": "string"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "description": "Latest time (yyyy-mm-dd HH:MM:SS:z or yyyy-mm-dd HH:MM:SS) the learner could have been last modified (exclusive).",
+            "required": false,
+            "schema": {
+              "title": "end",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of Learners",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Learner"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No learners found"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new learner",
+        "description": "This endpoint creates a new learner.",
+        "operationId": "createLearner",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "department": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "address1": {
+                    "type": "string"
+                  },
+                  "address2": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "zip": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "custom": {
+                    "type": "string"
+                  },
+                  "manager_name": {
+                    "type": "string"
+                  },
+                  "manager_email": {
+                    "type": "string"
+                  },
+                  "group_name": {
+                    "type": "string"
+                  },
+                  "custom2": {
+                    "type": "string"
+                  },
+                  "custom3": {
+                    "type": "string"
+                  },
+                  "custom4": {
+                    "type": "string"
+                  },
+                  "custom5": {
+                    "type": "string"
+                  },
+                  "custom6": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The learner",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearnerProfile"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/learners/{id}": {
+      "get": {
+        "summary": "Retrieve a learner",
+        "description": "This endpoint retrieves a learner by ID.",
+        "operationId": "getLearnerById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the requested learner",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested learner",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/LearnerProfile"
+                    },
+                    {
+                      "properties": {
+                        "learner_stat": {
+                          "$ref": "#/components/schemas/LearnerStatistics"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Learner not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Edit an existing learner",
+        "description": "This endpoint edits the personal information of a specific learner.",
+        "operationId": "editLearnerById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the learner to modify",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The request body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "department": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "address1": {
+                    "type": "string"
+                  },
+                  "address2": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "zip": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "custom": {
+                    "type": "string"
+                  },
+                  "manager_name": {
+                    "type": "string"
+                  },
+                  "manager_email": {
+                    "type": "string"
+                  },
+                  "group_name": {
+                    "type": "string"
+                  },
+                  "custom2": {
+                    "type": "string"
+                  },
+                  "custom3": {
+                    "type": "string"
+                  },
+                  "custom4": {
+                    "type": "string"
+                  },
+                  "custom5": {
+                    "type": "string"
+                  },
+                  "custom6": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The learner",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearnerProfile"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Learner not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a learner",
+        "description": "This endpoint deletes a learner specified by ID.",
+        "operationId": "deleteLearnerById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the learner to delete",
+            "required": true,
+            "schema": {
+              "title": "id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Learner deleted"
+          },
+          "404": {
+            "description": "Learner not found"
+          }
+        }
+      }
+    },
+    "/modules/{id}": {
+      "get": {
+        "summary": "Retrieve a module",
+        "description": "This endpoint retrieves a module by ID.",
+        "operationId": "getModuleById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the requested module",
+            "required": true,
+            "schema": {
+              "title": "id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested module",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Module"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Module not found"
+          }
+        }
+      }
+    },
+    "/notifications": {
+      "get": {
+        "summary": "List notifications",
+        "description": "This endpoint retrieves a list of notifications.",
+        "operationId": "getNotifications",
+        "parameters": [
+          {
+            "name": "type[]",
+            "in": "query",
+            "description": "Array of notification type(s) to filter by",
+            "required": false,
+            "schema": {
+              "title": "type[]",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "enrollment",
+                  "start",
+                  "finish",
+                  "completion",
+                  "phished",
+                  "phish_hunter"
+                ]
+              }
+            },
+            "example": [
+              "start",
+              "enrollment"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of Notifications",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Notification"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid type parameter"
+          }
+        }
+      }
+    },
+    "/phishhunter/messages": {
+      "get": {
+        "summary": "List PhishHunter Messages",
+        "description": "This endpoint retrieves a page of PhishHunter messages.",
+        "operationId": "listPhishHunterMessages",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of Messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/PhishHunterMessageDetail"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/phishhunter/messages/{id}": {
+      "get": {
+        "summary": "Retrieve a message from PhishHunter",
+        "description": "This endpoint retrieves a message and all of its components.",
+        "operationId": "getPhishHunterMessageById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the requested message",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhishHunterMessageDetail"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You must have access to the PhishHunter feature to use this endpoint"
+          },
+          "404": {
+            "description": "Message not found"
+          }
+        }
+      }
+    },
+    "/quarantined-emails/{id}": {
+      "get": {
+        "summary": "Retrieve a quarantined email",
+        "description": "This endpoint retrieves a quarantined email by ID.",
+        "operationId": "getQuarantinedEmailById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the requested quarantined email",
+            "required": true,
+            "schema": {
+              "title": "id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested quarantined email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuarantinedEmail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Quarantined email not found"
+          }
+        }
+      }
+    },
+    "/templates/": {
+      "get": {
+        "summary": "List PhishSim templates",
+        "description": "This endpoint retrieves a list of PhishSim templates",
+        "operationId": "getTemplates",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of result pages to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of available phish templates",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/TemplateList"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/templates/{id}": {
+      "get": {
+        "summary": "Retrieve a PhishSim template",
+        "description": "This endpoint retrieves an email template by ID.",
+        "operationId": "getTemplateById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the requested template",
+            "required": true,
+            "schema": {
+              "title": "id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested template",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Template not found"
+          }
+        }
+      }
+    },
+    "/timeline-events": {
+      "get": {
+        "summary": "List timeline events",
+        "description": "This endpoint retrieves a page of timeline events, optionally filtered by type and/or date range.",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Search TimelineEvents by type",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/TimelineEventType"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "Earliest time (yyyy-mm-dd HH:MM:SS:z or yyyy-mm-dd HH:MM:SS) TimelineEvent could have occurred (inclusive).",
+            "required": false,
+            "schema": {
+              "title": "start",
+              "type": "string"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "description": "Latest time (yyyy-mm-dd HH:MM:SS:z or yyyy-mm-dd HH:MM:SS) TimelineEvent could have occurred (exclusive).",
+            "required": false,
+            "schema": {
+              "title": "end",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/pageLimit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of TimelineEvents was found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/PagingMetadata"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/TimelineEvent"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "List of TimelineEvents was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "example": {
+                    "message": "No TimelineEvents found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "pageLimit": {
+        "title": "limit",
+        "type": "integer",
+        "default": 20,
+        "maximum": 100,
+        "minimum": 1
+      },
+      "page": {
+        "title": "page",
+        "type": "integer",
+        "default": 1,
+        "minimum": 1
+      },
+      "Assessment": {
+        "description": "A unique Infosec IQ Assessment",
+        "required": [
+          "id",
+          "name",
+          "show_explanations",
+          "show_results",
+          "show_summary",
+          "show_correct_wrong_counter",
+          "show_progress",
+          "created",
+          "passing_percentage"
+        ],
+        "properties": {
+          "id": {
+            "description": "Unique identifier for Assessment",
+            "type": "string"
+          },
+          "name": {
+            "description": "Assessment name",
+            "type": "string"
+          },
+          "show_explanations": {
+            "description": "Determines whether explanations to answers in this Assessment will be shown",
+            "type": "boolean"
+          },
+          "show_results": {
+            "description": "Determines whether to show the how well a Learner did after completing this Assessment",
+            "type": "boolean"
+          },
+          "show_summary": {
+            "description": "Determines whether or not to show a summary at the end of an Assessment",
+            "type": "boolean"
+          },
+          "show_correct_wrong_counter": {
+            "description": "Determines whether to show how many questions a Learner got right or wrong during an Assessment",
+            "type": "boolean"
+          },
+          "show_progress": {
+            "description": "Determines whether to show how far along a user is in an Assessment while they are taking it",
+            "type": "boolean"
+          },
+          "created": {
+            "description": "Datetime string representation of when this Assessment was created",
+            "type": "string"
+          },
+          "modified": {
+            "description": "Datetime string representation of when this Assessment was modified",
+            "type": "string"
+          },
+          "passing_percentage": {
+            "description": "Percentage of Learners passing this Assessment",
+            "type": "string"
+          },
+          "description": {
+            "description": "Assessment description",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Battery": {
+        "description": "A unique Infosec IQ Battery",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for battery",
+            "type": "string"
+          },
+          "name": {
+            "description": "The Battery name",
+            "type": "string"
+          },
+          "is_system": {
+            "description": "Whether the Battery belongs to the system or is personal",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "Brandings": {
+        "description": "A unique Infosec IQ Branding",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for the brand",
+            "type": "string"
+          },
+          "name": {
+            "description": "A name for the brand",
+            "type": "string"
+          },
+          "ownership": {
+            "description": "Owner of the brand: system or personal",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Browser": {
+        "description": "A unique Infosec IQ Browser",
+        "required": [
+          "id",
+          "hash",
+          "user_agent",
+          "browser_name"
+        ],
+        "properties": {
+          "user_agent": {
+            "description": "The Browser user agent string",
+            "type": "string"
+          },
+          "browser_name": {
+            "description": "The name of the Browser being used (e.g. Chrome, Internet Explorer)",
+            "type": "string"
+          },
+          "browser_version": {
+            "description": "The Browser version (e.g. 68.0.0, 9.0)",
+            "type": "string"
+          },
+          "operating_system": {
+            "description": "The operating system that the Browser is being used on",
+            "type": "string"
+          },
+          "operating_system_version": {
+            "description": "The version of the operating system the Browser is being used on (e.g. Windows NT 6.1)",
+            "type": "string"
+          },
+          "is_up_to_date": {
+            "description": "Indicates if the Browser is up to date",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "CampaignAwareEdDetails": {
+        "description": "A unique Infosec IQ Campaign",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "course_id": {
+            "type": "string"
+          },
+          "is_test": {
+            "type": "boolean"
+          },
+          "branding_id": {
+            "type": "string"
+          },
+          "language_id": {
+            "type": "string"
+          },
+          "autoplay": {
+            "type": "boolean"
+          },
+          "enable_completion_cert": {
+            "type": "boolean"
+          },
+          "require_assessment_retake": {
+            "type": "boolean"
+          },
+          "lock_learners_out": {
+            "type": "boolean"
+          },
+          "learner_auth_enabled": {
+            "type": "boolean"
+          },
+          "reset_progress": {
+            "type": "boolean"
+          },
+          "schedule_interval_units": {
+            "description": "Send learners training daily, weekly, etc",
+            "type": "string",
+            "enum": [
+              "number_of_days",
+              "day",
+              "week",
+              "month",
+              "quarter"
+            ]
+          },
+          "number_of_days": {
+            "description": "Required if schedule_interval_units=\"number_of_days\"",
+            "type": "integer"
+          },
+          "number_of_repeats": {
+            "description": "Required if schedule_interval_units=\"number_of_days\"",
+            "type": "integer"
+          },
+          "start_date": {
+            "description": "Format: YYYY-MM-DD",
+            "type": "string"
+          },
+          "notifications": {
+            "description": "List of notifications for Enrollment, Start, Finish, and Completion",
+            "properties": {
+              "template_id": {
+                "description": "A unique identifier for each template",
+                "type": "string"
+              },
+              "recipient": {
+                "description": "Recipient of this notification",
+                "type": "string",
+                "enum": [
+                  "learner",
+                  "manager"
+                ]
+              },
+              "interval": {
+                "description": "Only used for Start and Finish notifications",
+                "type": "integer"
+              },
+              "repeat": {
+                "description": "Only used for Start and Finish notifications",
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "all_learners": {
+            "description": "Enroll all learners",
+            "type": "boolean"
+          },
+          "learner_group_ids": {
+            "description": "Ignored if all_learners=true",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "learner_ids": {
+            "description": "Ignored if all_learners=true",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "type": "object"
+      },
+      "Enrollment": {
+        "description": "A unique Infosec IQ Enrollment",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for enrollment",
+            "type": "string"
+          },
+          "learner": {
+            "$ref": "#/components/schemas/Learner"
+          },
+          "campaign": {
+            "$ref": "#/components/schemas/Campaign"
+          }
+        },
+        "type": "object"
+      },
+      "Notification": {
+        "description": "A unique Infosec IQ Notification",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for a Notification",
+            "type": "string"
+          },
+          "name": {
+            "description": "The Notification's name",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of Notification (enrollment, start, finish, completion, phished or phish_hunter)",
+            "type": "string"
+          },
+          "ownership": {
+            "description": "The type of owner (system, shared or personal)",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CampaignPhishSimDetails": {
+        "description": "A unique Infosec IQ Campaign",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "is_test": {
+            "type": "boolean"
+          },
+          "templates": {
+            "description": "List of template IDs",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "batteries": {
+            "description": "List of battery IDs",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "categories": {
+            "description": "List of category IDs",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "send_all_templates": {
+            "type": "boolean"
+          },
+          "template_send_count": {
+            "type": "integer"
+          },
+          "track_replies": {
+            "type": "boolean"
+          },
+          "track_reply_action": {
+            "type": "string",
+            "enum": [
+              "none",
+              "store"
+            ]
+          },
+          "branding_id": {
+            "type": "string"
+          },
+          "schedule_interval_units": {
+            "description": "Send learners training daily, weekly, etc",
+            "type": "string",
+            "enum": [
+              "number_of_days",
+              "all_at_once",
+              "day",
+              "week",
+              "month",
+              "quarter"
+            ]
+          },
+          "number_of_days": {
+            "description": "Required if scheduled_interval_units=\"number_of_days\"",
+            "type": "integer"
+          },
+          "number_of_repeats": {
+            "description": "Required if scheduled_interval_units=\"number_of_days\"",
+            "type": "integer"
+          },
+          "start_date": {
+            "description": "Format: YYYY-MM-DD",
+            "type": "string"
+          },
+          "start_hour": {
+            "description": "Number between 0 and 23. Used only if scheduled_interval_units=\"all_at_once\"",
+            "type": "string"
+          },
+          "phished_notification_id": {
+            "description": "Optional",
+            "type": "string"
+          },
+          "add_phished_learners_to_group_id": {
+            "description": "Optional",
+            "type": "string"
+          },
+          "all_learners": {
+            "description": "Enroll all learners",
+            "type": "boolean"
+          },
+          "learner_group_ids": {
+            "description": "Can only be included if all_learners=false",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "learner_ids": {
+            "description": "Can only be included if all_learners=false",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "type": "object"
+      },
+      "CampaignRunLearnerStats": {
+        "description": "A unique Infosec IQ Learner",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for Learner",
+            "type": "string"
+          },
+          "completed_on": {
+            "description": "A string representation of the learners completion date",
+            "type": "string"
+          },
+          "status": {
+            "description": "The status of the learners course progress",
+            "type": "string",
+            "enum": [
+              "not_started",
+              "started",
+              "completed"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "CampaignRunStats": {
+        "description": "A unique Infosec IQ CampaignRun",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for CampaignRun",
+            "type": "string"
+          },
+          "campaign_id": {
+            "description": "A unique identifier of the Campaign associated with a CampaignRun",
+            "type": "string"
+          },
+          "run_number": {
+            "description": "A number specifying the run of this Campaign",
+            "type": "integer"
+          },
+          "learners": {
+            "$ref": "#/components/schemas/LearnerCampaignRunStats"
+          }
+        },
+        "type": "object"
+      },
+      "LearnerCampaignRunStats": {
+        "description": "A unique Infosec IQ CampaignRun",
+        "properties": {
+          "started": {
+            "description": "The number of learners who have started the Campaign Run course",
+            "type": "integer"
+          },
+          "completed": {
+            "description": "The number of learners who have completed the Campaign Run course",
+            "type": "integer"
+          },
+          "passed": {
+            "description": "The number of learners that passed the Campaign Run course",
+            "type": "integer"
+          },
+          "failed": {
+            "description": "The number of learners that failed the Campaign Run course",
+            "type": "integer"
+          },
+          "time_trained": {
+            "description": "The length of time that learners have spend taking the Campaign Run course, in seconds",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "CampaignRun": {
+        "description": "A unique Infosec IQ CampaignRun",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for CampaignRun",
+            "type": "string"
+          },
+          "campaign_id": {
+            "description": "A unique identifier of the Campaign associated with a CampaignRun",
+            "type": "string"
+          },
+          "start": {
+            "description": "The datetime string representation of when CampaignRun started",
+            "type": "string"
+          },
+          "end": {
+            "description": "The datetime string representation of when CampaignRun ended",
+            "type": "string"
+          },
+          "run_number": {
+            "description": "A number specifying the run of this Campaign",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "Campaign": {
+        "description": "A unique Infosec IQ Campaign",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for campaign",
+            "type": "string"
+          },
+          "name": {
+            "description": "The Campaign name",
+            "type": "string"
+          },
+          "type": {
+            "description": "The Campaign type",
+            "type": "string"
+          },
+          "running": {
+            "description": "Whether the campaign is currently running",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "Category": {
+        "description": "A unique Infosec IQ PhishSim Template Category",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for the category",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the category",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Courses": {
+        "description": "A unique Infosec IQ Course",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for each course",
+            "type": "string"
+          },
+          "name": {
+            "description": "The course name",
+            "type": "string"
+          },
+          "ownership": {
+            "description": "Ownership: system, shared, personal",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CourseView": {
+        "description": "A unique Infosec IQ Course Asset",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for each course",
+            "type": "string"
+          },
+          "name": {
+            "description": "The course name",
+            "type": "string"
+          },
+          "subtitle": {
+            "description": "The course subtitle",
+            "type": "string"
+          },
+          "duration": {
+            "description": "The total time of content for this course (in seconds)",
+            "type": "string"
+          },
+          "description": {
+            "description": "The course summary",
+            "type": "string"
+          },
+          "ownership": {
+            "description": "Ownership: system, shared, personal",
+            "type": "string"
+          },
+          "assets": {
+            "description": "List of assets for this course",
+            "properties": {
+              "id": {
+                "description": "A unique identifier for each course asset",
+                "type": "string"
+              },
+              "name": {
+                "description": "The course asset name",
+                "type": "string"
+              },
+              "type": {
+                "description": "The type of asset: assessment, module, etc",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "Languages": {
+        "description": "A list of Infosec IQ languages",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for languages",
+            "type": "string"
+          },
+          "name": {
+            "description": "The language name",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LearnerGroupList": {
+        "description": "A unique Infosec IQ Learner Group",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for the Learner Group",
+            "type": "string"
+          },
+          "name": {
+            "description": "The Learner Group name",
+            "type": "string"
+          },
+          "is_dynamic": {
+            "description": "The Learner Group type",
+            "type": "boolean"
+          },
+          "modified": {
+            "description": "The datetime string representation of when this Learner Group was last modified",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LearnerGroup": {
+        "description": "A unique Infosec IQ Learner Group",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for the Learner Group",
+            "type": "string"
+          },
+          "name": {
+            "description": "The Learner Group name",
+            "type": "string"
+          },
+          "type": {
+            "description": "The Learner Group type (can be either static or dynamic)",
+            "type": "string"
+          },
+          "modified": {
+            "description": "The datetime string representation of when this Learner Group was last modified",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Learner": {
+        "description": "A unique Infosec IQ Learner",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for the learner",
+            "type": "string"
+          },
+          "email": {
+            "description": "The email address of the learner",
+            "type": "string"
+          },
+          "first_name": {
+            "description": "The first name of the learner",
+            "type": "string"
+          },
+          "last_name": {
+            "description": "The last name of the learner",
+            "type": "string"
+          },
+          "modified": {
+            "description": "The last modified timestamp of the learner",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "PhishHunterMessage": {
+        "description": "A message stored in PhishHunter",
+        "properties": {
+          "id": {
+            "description": "A uuid unique to the message",
+            "type": "string"
+          },
+          "received": {
+            "description": "The date the email was received by the users email client",
+            "type": "string"
+          },
+          "reported": {
+            "description": "The date the email was reported to PhishHunter",
+            "type": "string"
+          },
+          "reporter": {
+            "description": "The email address of the user who reported the email",
+            "type": "string"
+          },
+          "risk_score": {
+            "description": "A floating point number between 0-1 (inclusive) indicating the risk associated with the message, 1 being the highest risk",
+            "type": "number"
+          },
+          "sender": {
+            "description": "The sender as indicated in the From header of the email message",
+            "type": "string"
+          },
+          "subject": {
+            "description": "The subject of the email message",
+            "type": "string"
+          },
+          "tags": {
+            "description": "Any tags the user has applied to the message",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "type": "object"
+      },
+      "PhishHunterMessageDetail": {
+        "description": "A message stored in PhishHunter, including all of its components",
+        "properties": {
+          "id": {
+            "description": "A uuid unique to the message",
+            "type": "string"
+          },
+          "received": {
+            "description": "The date the email was received by the users email client",
+            "type": "string"
+          },
+          "original_file_url": {
+            "description": "A url where you can download the original MIME message as it was submitted.",
+            "type": "string"
+          },
+          "reported": {
+            "description": "The date the email was reported to PhishHunter",
+            "type": "string"
+          },
+          "reporter": {
+            "description": "The email address of the user who reported the email",
+            "type": "string"
+          },
+          "risk_score": {
+            "description": "A floating point number between 0-1 (inclusive) indicating the risk associated with the message, 1 being the highest risk",
+            "type": "number"
+          },
+          "sender": {
+            "description": "The sender as indicated in the From header of the email message",
+            "type": "string"
+          },
+          "subject": {
+            "description": "The subject of the email message",
+            "type": "string"
+          },
+          "tags": {
+            "description": "Any tags the user has applied to the message",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "components": {
+            "description": "Any tags the user has applied to the message",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PhishHunterMessageComponent"
+            }
+          }
+        },
+        "type": "object"
+      },
+      "PhishHunterMessageComponent": {
+        "description": "A component of a message stored in PhishHunter",
+        "properties": {
+          "type": {
+            "description": "The type of the component. E.G. BodyTextComponent, HeaderComponent, AttachmentComponent, etc",
+            "type": "string"
+          },
+          "is_malicious": {
+            "description": "Whether PhishHunter has flagged this component as malicious or not",
+            "type": "boolean"
+          },
+          "data": {
+            "description": "A json object representing the data contained within the component, structure will change depending on the component",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "Module": {
+        "description": "A unique Infosec IQ Module",
+        "required": [
+          "id",
+          "name",
+          "file_size_mb"
+        ],
+        "properties": {
+          "id": {
+            "description": "A unique identifier for Module",
+            "type": "string"
+          },
+          "name": {
+            "description": "The Module's name",
+            "type": "string"
+          },
+          "description": {
+            "description": "The Module's description",
+            "type": "string"
+          },
+          "file_size_mb": {
+            "description": "The Module's file size in MB",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "PagingMetadata": {
+        "description": "Paging metadata returned for a single API endpoint",
+        "properties": {
+          "page": {
+            "description": "The current page of results",
+            "type": "integer"
+          },
+          "current": {
+            "description": "The number of results returned for the current page",
+            "type": "integer"
+          },
+          "count": {
+            "description": "The total number of results",
+            "type": "integer"
+          },
+          "start": {
+            "description": "The starting number of results for the current page",
+            "type": "integer"
+          },
+          "end": {
+            "description": "The ending number of results for the current page",
+            "type": "integer"
+          },
+          "pageCount": {
+            "description": "The total number of pages",
+            "type": "integer"
+          },
+          "limit": {
+            "description": "The maximum number of results that will be returned per page",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "QuarantinedEmail": {
+        "description": "A unique Infosec IQ QuarantinedEmail",
+        "required": [
+          "id",
+          "from_email",
+          "to_email",
+          "from_name",
+          "subject",
+          "date"
+        ],
+        "properties": {
+          "id": {
+            "description": "A unique identifier for QuarantinedEmail",
+            "type": "string"
+          },
+          "from_email": {
+            "description": "The email address that QuarantinedEmail was sent from",
+            "type": "string"
+          },
+          "to_email": {
+            "description": "The email address that QuarantinedEmail was sent to",
+            "type": "string"
+          },
+          "from_name": {
+            "description": "The display name of sender that QuarantinedEmail was sent from",
+            "type": "string"
+          },
+          "subject": {
+            "description": "The subject of QuarantinedEmail",
+            "type": "string"
+          },
+          "date": {
+            "description": "The datetime string representing date that QuarantinedEmail record was created",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LearnerProfile": {
+        "description": "A learner and profile",
+        "properties": {
+          "id": {
+            "description": "Unique identifier for learner",
+            "type": "string"
+          },
+          "email": {
+            "description": "Learner's email address",
+            "type": "string"
+          },
+          "first_name": {
+            "description": "Learner's first name",
+            "type": "string"
+          },
+          "last_name": {
+            "description": "Learner's last name",
+            "type": "string"
+          },
+          "modified": {
+            "description": "Timestamp for last modification",
+            "type": "string"
+          },
+          "dashboard_url": {
+            "description": "Link to the learner's dashboard",
+            "type": "string"
+          },
+          "learner_profile": {
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "department": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              },
+              "address1": {
+                "type": "string"
+              },
+              "address2": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "zip": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "custom": {
+                "type": "string"
+              },
+              "manager_name": {
+                "type": "string"
+              },
+              "manager_email": {
+                "type": "string"
+              },
+              "custom2": {
+                "type": "string"
+              },
+              "custom3": {
+                "type": "string"
+              },
+              "custom4": {
+                "type": "string"
+              },
+              "custom5": {
+                "type": "string"
+              },
+              "custom6": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "groups": {
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LearnerGroup"
+                }
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "LearnerStatistics": {
+        "description": "Learner Statistics",
+        "properties": {
+          "id": {
+            "description": "Learner statistic id",
+            "type": "string"
+          },
+          "visit_count": {
+            "description": "Number of visits",
+            "type": "integer"
+          },
+          "latest_visit": {
+            "description": "Date and time of last learner visit",
+            "type": "string"
+          },
+          "latest_visit_ip_address": {
+            "description": "IP address of learner during latest visit",
+            "type": "string"
+          },
+          "latest_visit_browser_outdated": {
+            "description": "Number of visits with an outdated browser",
+            "type": "integer"
+          },
+          "phished_count": {
+            "description": "Number of times the learner was phished",
+            "type": "integer"
+          },
+          "data_entry_count": {
+            "description": "Number of times the learner has entered data into a phishing site",
+            "type": "integer"
+          },
+          "attachment_count": {
+            "description": "Number of times the learner has opened an attachment",
+            "type": "integer"
+          },
+          "macro_enabled_count": {
+            "description": "Number of macros the learner has enabled",
+            "type": "integer"
+          },
+          "teachable_count": {
+            "description": "Number of teachable moments",
+            "type": "integer"
+          },
+          "training_started_count": {
+            "description": "Number of times a training has been started",
+            "type": "integer"
+          },
+          "training_completed_count": {
+            "description": "Number of trainings completed",
+            "type": "integer"
+          },
+          "plugin_connection_count": {
+            "description": "Number of times learner has used PhishNotify",
+            "type": "integer"
+          },
+          "latest_plugin_connection": {
+            "description": "Last date and time PhishNotify was used",
+            "type": "string"
+          },
+          "plugin_simulation_report_count": {
+            "description": "Number of simulated phishing attempts reported with PhishNotify",
+            "type": "integer"
+          },
+          "plugin_email_report_count": {
+            "description": "Number of phishing attempts reported with PhishNotify",
+            "type": "integer"
+          },
+          "module_enrolled_count": {
+            "description": "Number of modules the learner is enrolled in",
+            "type": "integer"
+          },
+          "module_started_count": {
+            "description": "Number of modules the learner has started",
+            "type": "integer"
+          },
+          "module_completed_count": {
+            "description": "Number of modules the learner has completed",
+            "type": "integer"
+          },
+          "exercise_completed_count": {
+            "description": "Number of exercises completed ",
+            "type": "integer"
+          },
+          "total_time_trained": {
+            "description": "Minutes spent training",
+            "type": "integer"
+          },
+          "grade": {
+            "description": "Number grade of learner",
+            "type": "number"
+          },
+          "letter_grade": {
+            "description": "Letter grade of learner",
+            "type": "string"
+          },
+          "modified": {
+            "description": "Latest date and time statistics were modified",
+            "type": "string"
+          },
+          "replied_count": {
+            "description": "Number of times learner has replied to a phishing simulation attempt",
+            "type": "integer"
+          },
+          "assessment_enrolled_count": {
+            "description": "Number of assessments the learner is enrolled in",
+            "type": "integer"
+          },
+          "assessment_started_count": {
+            "description": "Number of assessments started by the learner",
+            "type": "integer"
+          },
+          "assessment_completed_count": {
+            "description": "Number of assessments completed",
+            "type": "integer"
+          },
+          "assessment_passed_count": {
+            "description": "Number of assessments passed",
+            "type": "integer"
+          },
+          "matched_count": {
+            "description": "Number of replied and matched emails",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "TemplateList": {
+        "description": "A unique Infosec IQ Template",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for a Template",
+            "type": "string"
+          },
+          "name": {
+            "description": "The Template's name",
+            "type": "string"
+          },
+          "ownership": {
+            "description": "The type of owner of the template (system/contributed/shared/personal)",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TemplateDetails": {
+        "description": "A unique Infosec IQ Template",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for a Template",
+            "type": "string"
+          },
+          "type": {
+            "description": "The Template's type",
+            "type": "string"
+          },
+          "name": {
+            "description": "The Template's name",
+            "type": "string"
+          },
+          "from_name": {
+            "description": "The display name shown as sender of Template",
+            "type": "string"
+          },
+          "from_email": {
+            "description": "The sender's email address shown for sender of Template",
+            "type": "string"
+          },
+          "subject": {
+            "description": "The Template's subject",
+            "type": "string"
+          },
+          "html": {
+            "description": "The html used by this Template",
+            "type": "string"
+          },
+          "category": {
+            "description": "The Template's category",
+            "type": "string"
+          },
+          "is_public": {
+            "description": "Determines whether a Template has been contributed by a user to all other users of Infosec IQ",
+            "type": "boolean"
+          },
+          "is_system": {
+            "description": "Determines whether a Template has been created by Infosec IQ or created by a user",
+            "type": "boolean"
+          },
+          "has_indicators": {
+            "description": "Determines whether or not the Template uses phish indicators.\n * Phish indicators will describe which parts of a Template should have been spotted as phishy by a Learner",
+            "type": "boolean"
+          },
+          "attachment_type": {
+            "description": "The MIME type of this Template's attachment",
+            "type": "string"
+          },
+          "attachment_name": {
+            "description": "The name of this Template",
+            "type": "string"
+          },
+          "phish_rate": {
+            "description": "The rate at which users are phished with this Template (percentage)",
+            "type": "number"
+          },
+          "open_rate": {
+            "description": "The rate at which emails sent with this Template are opened (percentage)",
+            "type": "number"
+          },
+          "difficulty": {
+            "description": "The difficulty for Learners to spot this Template as a phish, rated on a scale of 1 to 5",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "TimelineEvent": {
+        "description": "A unique Infosec IQ TimelineEvent",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for TimelineEvent",
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/TimelineEventType"
+          },
+          "timestamp": {
+            "description": "The datetime string representation of when the TimelineEvent occurred",
+            "type": "string"
+          },
+          "learner_id": {
+            "description": "The unique id of the associated learner",
+            "type": "string"
+          },
+          "campaign_id": {
+            "description": "The unique id of the associated campaign",
+            "type": "string"
+          },
+          "quarantined_email_id": {
+            "description": "The unique id of the associated quarantined email",
+            "type": "string"
+          },
+          "module_id": {
+            "description": "The unique id of the associated module",
+            "type": "string"
+          },
+          "campaign_run_id": {
+            "description": "The unique id of the associated campaign run",
+            "type": "string"
+          },
+          "template_id": {
+            "description": "The unique id of the associated phish template",
+            "type": "string"
+          },
+          "learner_group_id": {
+            "description": "The unique id of the associated learner group",
+            "type": "string"
+          },
+          "assessment_id": {
+            "description": "The unique id of the associated assessment",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TimelineEventType": {
+        "description": "A type used to describe the TimelineEvent",
+        "type": "string",
+        "enum": [
+          "added-to-group",
+          "removed-from-group",
+          "created-learner",
+          "scheduled-in-phish-campaign",
+          "scheduled-in-phish-campaign-run",
+          "sent-phish-email",
+          "phished-learner",
+          "entered-data",
+          "opened-attachment",
+          "opened-phish",
+          "started-phish-training",
+          "completed-phish-training",
+          "submitted-phishsim-email",
+          "submitted-phishing-email",
+          "scheduled-in-aware-campaign",
+          "scheduled-in-aware-campaign-run",
+          "started-aware-course",
+          "started-aware-module",
+          "completed-aware-module",
+          "stopped-aware-course",
+          "completed-aware-course",
+          "started-aware-assessment",
+          "completed-aware-assessment",
+          "passed-aware-assessment",
+          "failed-aware-assessment",
+          "stopped-aware-assessment",
+          "stopped-aware-module",
+          "started-aware-reminder",
+          "finished-aware-reminder",
+          "enabled-macro",
+          "fast-clicked",
+          "accepted-policy",
+          "changed-learner-status",
+          "changed-defender-status",
+          "replied",
+          "matched-pattern",
+          "core-behavior-score-changed",
+          "adaptive-assessment-completed",
+          "recommendation-completed",
+          "recommendation-started"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "BearerAPIToken": {
+        "type": "apiKey",
+        "description": "Before you begin, you will need an API Token. You can generate a token within the IQ app.",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
+}
