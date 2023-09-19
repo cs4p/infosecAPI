@@ -4,7 +4,8 @@ import logging
 import csv
 
 
-def api_query(base_url, api_key, params, verb="get"):
+def api_query(base_url, api_key, params, verb="get", proxies=None):
+    logging.debug("proxies: %s" % proxies.__str__())
     my_headers = {'Authorization': 'Bearer ' + api_key}
     full_url = base_url + "learners"
     ## For testing. Uncomment the following 2 lines.
@@ -12,11 +13,11 @@ def api_query(base_url, api_key, params, verb="get"):
     # full_url = "http://localhost:4001"
     # my_headers = {}
     if verb == "get":
-        response = requests.get(full_url, headers=my_headers, params=params)
+        response = requests.get(full_url, headers=my_headers, params=params, proxies=proxies)
     elif verb == "post":
-        response = requests.post(full_url, headers=my_headers, params=params)
+        response = requests.post(full_url, headers=my_headers, params=params, proxies=proxies)
     elif verb == "delete":
-        response = requests.delete(full_url + '/' + params, headers=my_headers)
+        response = requests.delete(full_url + '/' + params, headers=my_headers, proxies=proxies)
     else:
         logging.error("Invalid http verb provided")
         sys.exit()
@@ -30,13 +31,14 @@ def api_query(base_url, api_key, params, verb="get"):
         sys.exit("An error occurred.  Please check the log file for details.")
 
 
-def list_all_learners(base_url, api_key):
+def list_all_learners(base_url, api_key, proxies=None):
+    logging.debug("proxies: %s" % proxies.__str__())
     learner_list = []
     learner_list_email = []
     page = num_of_pages = 1
     while page <= num_of_pages:
         logging.debug("Retrieving page %s" % str(page))
-        response = api_query(base_url, api_key, params={'page': page, 'limit': 100})
+        response = api_query(base_url, api_key, params={'page': page, 'limit': 100}, proxies=proxies)
         response_dict = response.json()
         for learner in response_dict["data"]:
             learner_list.append({"email": learner["email"], "first_name": learner["first_name"], "last_name": learner["last_name"]})
@@ -46,9 +48,9 @@ def list_all_learners(base_url, api_key):
     return learner_list, learner_list_email
 
 
-def get_learner_id_by_email(base_url, api_key, email):
+def get_learner_id_by_email(base_url, api_key, email, proxies=None):
     logging.debug("Checking for leaner with email %s" % email)
-    response = api_query(base_url, api_key, params={'email': email})
+    response = api_query(base_url, api_key, params={'email': email}, proxies=proxies)
     response_dict = response.json()
     if len(response_dict['data']) > 0:
         logging.debug("Found leaner with email %s" % email)
@@ -58,16 +60,16 @@ def get_learner_id_by_email(base_url, api_key, email):
         return False
 
 
-def add_learner(base_url, api_key, params):
+def add_learner(base_url, api_key, params, proxies=None):
     user_properties = params.__str__()
     logging.debug("Adding leaner with properties %s" % user_properties)
-    response = api_query(base_url, api_key, params=params, verb="post")
+    response = api_query(base_url, api_key, params=params, verb="post", proxies=proxies)
     return response.json()
 
 
-def delete_learner(base_url, api_key, id):
+def delete_learner(base_url, api_key, id, proxies=None):
     logging.debug("Deleting leaner with ID %s" % id)
-    response = api_query(base_url, api_key, params=id, verb="delete")
+    response = api_query(base_url, api_key, params=id, verb="delete", proxies=proxies)
     return response.json()
 
 
@@ -90,10 +92,11 @@ def import_ad_users(user_file):
         return ad_user_list, ad_user_list_email
 
 
-def sync_ad_with_learners(base_url, api_key, user_file):
+def sync_ad_with_learners(base_url, api_key, user_file, proxies=None):
     logging.info("Starting AD sync...")
+    logging.debug("proxies: %s" % proxies.__str__())
     # Check for users to delete
-    learners_list, learners_list_email = list_all_learners(base_url, api_key)
+    learners_list, learners_list_email = list_all_learners(base_url, api_key, proxies)
     ad_user_list, ad_user_list_email = import_ad_users(user_file)
     # find learners to add
     add_learners = list(set(ad_user_list_email) - set(learners_list_email))
@@ -104,9 +107,9 @@ def sync_ad_with_learners(base_url, api_key, user_file):
     # Delete users
     logging.info("Deleting users...")
     for learner in delete_learners:
-        learner_id = get_learner_id_by_email(base_url, api_key, learner)
+        learner_id = get_learner_id_by_email(base_url, api_key, learner,proxies)
         if learner_id:
-            delete_learner(base_url, api_key, learner_id)
+            delete_learner(base_url, api_key, learner_id,proxies)
             logging.info("Learner with email %s deleted" % learner)
         else:
             logging.critical("Learner with email %s not found" % learner)
@@ -117,7 +120,7 @@ def sync_ad_with_learners(base_url, api_key, user_file):
             for user in ad_user_list:
                 if user['email'] == learner:
                     params = {"email": user["email"], "first_name": user["first_name"], "last_name": user["last_name"]}
-                    add_learner(base_url, api_key, params)
+                    add_learner(base_url, api_key, params,proxies)
                     logging.info("Learner with email %s added" % learner)
         else:
             logging.warning("Learner %s is not a valid email address" % learner)
