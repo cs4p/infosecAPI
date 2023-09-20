@@ -3,7 +3,8 @@ import argparse
 import getpass
 import sys
 import logging
-from learners import sync_ad_with_learners
+
+from infosecAPI import learners
 
 
 def main():
@@ -54,7 +55,9 @@ def main():
     else:
         proxies = None
     
-    sync_ad_with_learners(base_url, api_key, user_file, proxies)
+    sync_job = learners.LearnerQuery(base_url=base_url, api_key=api_key, user_file=user_file, proxies=proxies)
+    
+    sync_job.sync_ad_with_learners()
 
 
 if __name__ == '__main__':
