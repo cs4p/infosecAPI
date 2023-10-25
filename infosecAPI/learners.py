@@ -101,7 +101,7 @@ class LearnerQuery(api_query):
             if learner.split('@')[1] == 'omb.eop.gov':
                 for user in ad_user_list:
                     if user['email'] == learner:
-                        params = {"email": user["email"], "first_name": user["first_name"], "last_name": user["last_name"]}
+                        params = {"email":  user["email"], "first_name": user["first_name"], "last_name": user["last_name"]}
                         self.add_learner(params)
                         logging.info("Learner with email %s added" % learner)
             else:

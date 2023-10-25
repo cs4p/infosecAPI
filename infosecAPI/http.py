@@ -1,3 +1,5 @@
+import json
+
 import requests
 import logging
 import sys
@@ -26,7 +28,10 @@ class api_query(requests.Request):
         if self.verb == "get":
             response = requests.get(self.active_url, headers=my_headers, params=params, proxies=self.proxies)
         elif self.verb == "post":
-            response = requests.post(self.active_url, headers=my_headers, params=params, proxies=self.proxies)
+            my_headers['Content-Type']= 'application/json'
+            my_headers['Accept']= 'application/json'
+            params_json = json.dumps(params)
+            response = requests.post(self.active_url, headers=my_headers, data=params_json, proxies=self.proxies)
         elif self.verb == "delete":
             response = requests.delete(self.active_url + '/' + params, headers=my_headers, proxies=self.proxies)
         else:
