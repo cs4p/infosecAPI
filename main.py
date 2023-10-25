@@ -55,9 +55,9 @@ def main():
     else:
         proxies = None
     
-    sync_job = learners.LearnerQuery(base_url=base_url, api_key=api_key, user_file=user_file, proxies=proxies)
+    sync_job = learners.LearnerQuery(base_url=base_url, api_key=api_key, proxies=proxies)
     
-    sync_job.sync_ad_with_learners()
+    sync_job.sync_ad_with_learners(user_file=user_file)
 
 
 if __name__ == '__main__':

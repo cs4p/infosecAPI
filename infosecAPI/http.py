@@ -7,16 +7,15 @@ import sys
 
 class api_query(requests.Request):
     
-    def __init__(self, base_url, api_key, params=None, verb='get', proxies=None):
+    def __init__(self, base_url, api_key, params=None, proxies=None):
         self._api_url = base_url
         self.base_url = base_url
         self.active_url = self.base_url
         self.api_key = api_key
         self.params = params
-        self.verb = verb
         self.proxies = proxies
     
-    def api_query(self, params=None):
+    def api_query(self, params=None, verb='get'):
         if self.active_url is None:
             self.active_url = self.base_url
         logging.debug("proxies: %s" % self.proxies.__str__())
@@ -25,25 +24,28 @@ class api_query(requests.Request):
         ## Start the test server by running 'python test_server.py' from the terminal
         # full_url = "http://localhost:4001"
         # my_headers = {}
-        if self.verb == "get":
+        if verb == "get":
             response = requests.get(self.active_url, headers=my_headers, params=params, proxies=self.proxies)
-        elif self.verb == "post":
+            expected_response = 200
+        elif verb == "post":
             my_headers['Content-Type']= 'application/json'
             my_headers['Accept']= 'application/json'
             params_json = json.dumps(params)
             response = requests.post(self.active_url, headers=my_headers, data=params_json, proxies=self.proxies)
-        elif self.verb == "delete":
+            expected_response = 201
+        elif verb == "delete":
             response = requests.delete(self.active_url + '/' + params, headers=my_headers, proxies=self.proxies)
+            expected_response = 200
         else:
-            logging.error("Invalid http verb (%s) provided" % self.verb)
+            logging.error("Invalid http verb (%s) provided" % verb)
             sys.exit()
-        if response.status_code == 200:
+        if response.status_code == expected_response:
             return response
         else:
             logging.error("An error occurred.\n")
             logging.error("query params: %s\n" % params.__str__())
             logging.error("url: %s" % response.url)
-            logging.error("verb: %s" % self.verb)
+            logging.error("verb: %s" % verb)
             sys.exit("An error occurred.  Please check the log file for details.")
     
     def multi_page_request(self):

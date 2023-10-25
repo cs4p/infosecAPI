@@ -4,13 +4,12 @@ from infosecAPI.http import api_query
 
 
 class LearnerQuery(api_query):
-    def __init__(self, base_url, api_key, params='', verb='get', proxies=None):
+    def __init__(self, api_key, base_url, params='', proxies=None):
             self._api_url = base_url
             self.base_url = base_url + "learners"
             self.active_url = self.base_url
             self.api_key = api_key
             self.params = params
-            self.verb = verb
             self.proxies = proxies
             
     def list_all_learners(self):
